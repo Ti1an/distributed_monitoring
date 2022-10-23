@@ -1,0 +1,16 @@
+package com.ustc.server.service;
+
+import com.ustc.server.entity.Memory;
+import com.baomidou.mybatisplus.extension.service.IService;
+
+/**
+ * <p>
+ * 内存表 服务类
+ * </p>
+ *
+ * @author xutao
+ * @since 2022-10-22
+ */
+public interface MemoryService extends IService<Memory> {
+
+}
