@@ -2,7 +2,11 @@ package com.ustc.server.mapper;
 
 import com.ustc.server.entity.Disk;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ustc.server.entity.vo.DiskIndex;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +18,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface DiskMapper extends BaseMapper<Disk> {
-
+    @Select("select d_name,d_use_rate from disk where gmt_create>DATE_SUB(current_timestamp(), INTERVAL 9 second) limit 0,4")
+    List<DiskIndex> getCurrentDiskIndex();
 }

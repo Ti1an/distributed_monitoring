@@ -2,6 +2,9 @@ package com.ustc.server.service;
 
 import com.ustc.server.entity.Net;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ustc.server.entity.vo.NetIndex;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface NetService extends IService<Net> {
 
+    List<NetIndex> getCurrentNetIndexService();
 }

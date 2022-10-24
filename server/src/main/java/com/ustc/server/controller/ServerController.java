@@ -11,6 +11,7 @@ import com.ustc.server.service.NetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,8 +46,9 @@ public class ServerController {
     private RestTemplate restTemplate;
 
     @GetMapping("/listener")
+    @Scheduled(cron ="0/8 * * * * ?")
     public void listener() throws InterruptedException {
-        while (true) {
+//        while (true) {
 
             System.out.println(new Date()+":写入CPU、硬盘、内存、网卡数据");
             //CPU
@@ -74,8 +76,8 @@ public class ServerController {
             for (Net net : nets) {
                 netService.save(net);
             }
-            Thread.sleep(10000);
-        }
+//            Thread.sleep(8000);
+//        }
         // 4.返回
     }
 

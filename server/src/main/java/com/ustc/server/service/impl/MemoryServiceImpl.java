@@ -1,9 +1,11 @@
 package com.ustc.server.service.impl;
 
 import com.ustc.server.entity.Memory;
+import com.ustc.server.entity.vo.MemoryIndex;
 import com.ustc.server.mapper.MemoryMapper;
 import com.ustc.server.service.MemoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemoryServiceImpl extends ServiceImpl<MemoryMapper, Memory> implements MemoryService {
 
+    @Autowired
+    private MemoryMapper memoryMapper;
+    @Override
+    public MemoryIndex getCurrentMemoryUsageRateServuce() {
+        MemoryIndex memoryIndex = memoryMapper.getCurrentMemoryUsageRate();
+        return memoryIndex;
+    }
 }

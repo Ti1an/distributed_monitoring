@@ -65,12 +65,12 @@ public class DiskServiceImpl extends ServiceImpl<DiskMapper, Disk> implements Di
                     //  文件系统已经使用量
                     System.out.println(fs.getDevName() + "已经使用量:    " + usage.getUsed() + "KB");
                     disk.setDUse(String.valueOf(usage.getUsed()));
-                    double usePercent = usage.getUsePercent() * 100D;
+                    double usePercent = usage.getUsePercent() * 100.0;
 
                     //  文件系统资源的利用率
                     System.out.println(fs.getDevName() + "资源的利用率:    " + usePercent + "%");
 
-                    disk.setDUseRate(String.format("%.2f",usePercent));
+                    disk.setDUseRate(String.format("%.2f",usage.getUsed() * 100.0 / usage.getTotal() * 1.0));
                     disk.setDFreeRate(String.format("%.2f",100.0 - usePercent));
                     break;
                 case 3: //  TYPE_NETWORK ：网络
