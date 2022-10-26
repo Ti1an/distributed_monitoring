@@ -1,37 +1,19 @@
-package com.ustc.server.entity;
+package com.ustc.server.entity.vo;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
 /**
- * <p>
- * CPU表
- * </p>
- *
- * @author xutao
- * @since 2022-10-22
+ * @Author: ffideal
+ * @CreateTime: 2022-10-25  10:29
+ * @Description: TODO
+ * @Version: 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@ApiModel(value="Cpu对象", description="CPU表")
-public class Cpu implements Serializable {
-
+public class CpuQuery {
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "cpu所在电脑的ip")
-    private String computerIp;
-
     @ApiModelProperty(value = "cpu在多核处理器机器中的编号")
     private Integer cpuNo;
 
@@ -68,4 +50,5 @@ public class Cpu implements Serializable {
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
+
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +29,13 @@ public class NetServiceImpl extends ServiceImpl<NetMapper, Net> implements NetSe
     public List<NetIndex> getCurrentNetIndexService() {
         List<NetIndex> netIndexList = new ArrayList<>();
         netIndexList = netMapper.getCurrentNetIndex();
+        return  netIndexList;
+    }
+
+    @Override
+    public List<NetIndex> getLastNetIndexService(String time) {
+        List<NetIndex> netIndexList = new ArrayList<>();
+        netIndexList = netMapper.getLastNetIndex(time);
         return  netIndexList;
     }
 }

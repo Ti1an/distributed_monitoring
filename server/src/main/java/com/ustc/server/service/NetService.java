@@ -4,6 +4,7 @@ import com.ustc.server.entity.Net;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ustc.server.entity.vo.NetIndex;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,4 +18,6 @@ import java.util.List;
 public interface NetService extends IService<Net> {
 
     List<NetIndex> getCurrentNetIndexService();
+
+    List<NetIndex> getLastNetIndexService(String time);
 }

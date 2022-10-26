@@ -45,6 +45,11 @@ public class ServerController {
     @Autowired
     private RestTemplate restTemplate;
 
+    private static final String server = "192.168.56.1";
+    private static final String slave1 = "192.168.56.2";
+    private static final String slave2 = "192.168.56.3";
+    private static final String slave3 = "192.168.56.4";
+
     @GetMapping("/listener")
     @Scheduled(cron ="0/8 * * * * ?")
     public void listener() throws InterruptedException {
@@ -53,6 +58,7 @@ public class ServerController {
             System.out.println(new Date()+":写入CPU、硬盘、内存、网卡数据");
             //CPU
             // 2. 利用RestTemplate发送http请求，查询用户
+//        String cpuUrl = "http://"+ip+":8002/rt/cpu/findinfo2";
             String cpuUrl = "http://localhost:8001/rt/cpu/findinfo2";
             Cpu[] cpus = restTemplate.getForObject(cpuUrl, Cpu[].class);
             // 3.保存到数据库

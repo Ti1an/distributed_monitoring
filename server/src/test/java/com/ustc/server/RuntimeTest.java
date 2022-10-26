@@ -1,6 +1,7 @@
 package com.ustc.server;
 
 import org.hyperic.sigar.*;
+import org.junit.Test;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -14,8 +15,9 @@ import java.util.Properties;
  * @Version: 1.0
  */
 
-public  class RuntimeTest {
-    public  static  void main(String[] args) {
+public class RuntimeTest {
+    @Test
+    public  void run() {
         try {
             //  System信息，从jvm获取
             property();

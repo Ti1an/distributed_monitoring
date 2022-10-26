@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: ffideal
@@ -78,6 +75,10 @@ public class IndexController {
             acceptNet.add(String.format("%.2f",(Double.parseDouble(netIndex.getNAcceptByte()) * 1.0 / MB)));
             timeNet.add(netIndex.getGmtCreate().toString().substring(11,20));
         }
+        Collections.reverse(timeNet);
+        Collections.reverse(sendNet);
+        Collections.reverse(acceptNet);
+
         return R.ok().data("cpuName",cpuName).data("cpuUsageRate",cpuUsageRate)
                 .data("memoryAndSwap",memoryIndex)
                 .data("diskName",diskName).data("diskUsageRate",diskUsageRate)

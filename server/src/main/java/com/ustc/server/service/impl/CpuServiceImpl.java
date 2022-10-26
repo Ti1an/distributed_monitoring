@@ -2,6 +2,7 @@ package com.ustc.server.service.impl;
 
 import com.ustc.server.entity.Cpu;
 import com.ustc.server.entity.vo.CpuIndex;
+import com.ustc.server.entity.vo.CpuQuery;
 import com.ustc.server.mapper.CpuMapper;
 import com.ustc.server.service.CpuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

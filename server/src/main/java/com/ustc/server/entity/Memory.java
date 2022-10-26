@@ -32,13 +32,13 @@ public class Memory implements Serializable {
     @ApiModelProperty(value = "cpu所在电脑的ip")
     private String computerIp;
 
-    @ApiModelProperty(value = "内存总量")
+    @ApiModelProperty(value = "内存总量(G)")
     private String mTotal;
 
-    @ApiModelProperty(value = "当前内存使用量")
+    @ApiModelProperty(value = "当前内存使用量(G)")
     private String mUse;
 
-    @ApiModelProperty(value = "当前内存剩余量")
+    @ApiModelProperty(value = "当前内存剩余量(G)")
     private String mFree;
 
     @ApiModelProperty(value = "内存使用率")
@@ -50,16 +50,16 @@ public class Memory implements Serializable {
     @ApiModelProperty(value = "交换区总量")
     private String mSwapTotal;
 
-    @ApiModelProperty(value = "当前交换区使用量")
+    @ApiModelProperty(value = "当前交换区使用量(G)")
     private String mSwapUse;
 
-    @ApiModelProperty(value = "当前交换区剩余量")
+    @ApiModelProperty(value = "当前交换区剩余量(G)")
     private String mSwapFree;
 
     @ApiModelProperty(value = "当前交换区使用率")
     private String mSwapUserate;
 
-    @ApiModelProperty(value = "当前交换区剩余率")
+    @ApiModelProperty(value = "当前交换区剩余率(%)")
     private String mSwapFreerate;
 
     @ApiModelProperty(value = "创建时间")
