@@ -34,15 +34,22 @@ public class MemoryController {
     @Autowired
     private MemoryService memoryService;
     @ApiOperation("有条件查询")
-    @GetMapping("/hasCondition/{page}/{limit}/{time}")
+    @PostMapping("/hasCondition/{page}/{limit}/{time}")
     public R queryTeachersByCondition(@ApiParam("当前页")@PathVariable("page")Long page,
                                       @ApiParam("每页记录数") @PathVariable("limit")Long limit,
-                                      @ApiParam("传入查询条件") @PathVariable("time") String time){
+                                      @ApiParam("传入查询条件") @PathVariable("time") String time,
+                                      @RequestBody(required = false) List<String> routerList){
+        System.out.println(routerList);
+        String router = routerList.get(1);
         Page<Memory> pageParam = new Page<>(page,limit);
         QueryWrapper<Memory> wrapper = new QueryWrapper();
         if (!StringUtils.isNullOrEmpty(time)) {
             wrapper.like("gmt_create",time);
         }
+        if (!StringUtils.isNullOrEmpty(router)){
+            wrapper.like("computer_ip",router);
+        }
+//        wrapper.like("computer_ip",router);
         memoryService.page(pageParam, wrapper);
         List<Memory> records = pageParam.getRecords();
         long total = pageParam.getTotal();

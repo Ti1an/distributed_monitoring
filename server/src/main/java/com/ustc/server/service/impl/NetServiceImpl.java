@@ -26,9 +26,9 @@ public class NetServiceImpl extends ServiceImpl<NetMapper, Net> implements NetSe
     @Autowired
     private NetMapper netMapper;
     @Override
-    public List<NetIndex> getCurrentNetIndexService() {
+    public List<NetIndex> getCurrentNetIndexService(String router) {
         List<NetIndex> netIndexList = new ArrayList<>();
-        netIndexList = netMapper.getCurrentNetIndex();
+        netIndexList = netMapper.getCurrentNetIndex(router);
         return  netIndexList;
     }
 

@@ -30,14 +30,21 @@ public class NetController {
     @Autowired
     private NetService netService;
     @ApiOperation("有条件查询")
-    @GetMapping("/hasCondition/{page}/{limit}/{time}")
+    @PostMapping("/hasCondition/{page}/{limit}/{time}")
     public R queryTeachersByCondition(@ApiParam("当前页")@PathVariable("page")Long page,
                                       @ApiParam("每页记录数") @PathVariable("limit")Long limit,
-                                      @ApiParam("传入查询条件") @PathVariable("time") String time){
+                                      @ApiParam("传入查询条件") @PathVariable("time") String time,
+                                      @RequestBody(required = false) List<String> routerList){
+        System.out.println(routerList);
+        String router = routerList.get(1);
         Page<Net> pageParam = new Page<>(page,limit);
         QueryWrapper<Net> wrapper = new QueryWrapper();
         if (!StringUtils.isNullOrEmpty(time)) {
             wrapper.like("gmt_create",time);
+        }
+//        wrapper.like("computer_ip",router);
+        if (!StringUtils.isNullOrEmpty(router)){
+            wrapper.like("computer_ip",router);
         }
         netService.page(pageParam, wrapper);
         List<Net> records = pageParam.getRecords();
@@ -45,6 +52,7 @@ public class NetController {
 //        wrapper.orderByDesc("n_send_byte");
         long sendNetL = 0L;
         long acceptNetL = 0L;
+        int netNums = records.size();
         for (int i = 0; i < records.size(); i++) {
             Net net = records.get(i);
             sendNetL += Long.parseLong(net.getNSendByte());
@@ -53,7 +61,7 @@ public class NetController {
         String sendNet = String.format("%.2f",sendNetL/(1024.0*1024.0));
         String acceptNet = String.format("%.2f",acceptNetL/(1024.0*1024.0));
         return R.ok().data("total", total).data("rows",records)
-                .data("sendNet",sendNet).data("acceptNet",acceptNet);
+                .data("sendNet",sendNet).data("acceptNet",acceptNet).data("netNums",netNums);
     }
 
 }

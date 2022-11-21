@@ -22,8 +22,8 @@ public class MemoryServiceImpl extends ServiceImpl<MemoryMapper, Memory> impleme
     @Autowired
     private MemoryMapper memoryMapper;
     @Override
-    public MemoryIndex getCurrentMemoryUsageRateServuce() {
-        MemoryIndex memoryIndex = memoryMapper.getCurrentMemoryUsageRate();
+    public MemoryIndex getCurrentMemoryUsageRateServuce(String router) {
+        MemoryIndex memoryIndex = memoryMapper.getCurrentMemoryUsageRate(router);
         return memoryIndex;
     }
 }

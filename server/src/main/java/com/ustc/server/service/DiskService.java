@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface DiskService extends IService<Disk> {
 
-    List<DiskIndex> getCurrentDiskIndexService();
+    List<DiskIndex> getCurrentDiskIndexService(String router);
 }

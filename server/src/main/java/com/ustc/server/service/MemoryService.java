@@ -14,5 +14,5 @@ import com.ustc.server.entity.vo.MemoryIndex;
  */
 public interface MemoryService extends IService<Memory> {
 
-    MemoryIndex getCurrentMemoryUsageRateServuce();
+    MemoryIndex getCurrentMemoryUsageRateServuce(String router);
 }

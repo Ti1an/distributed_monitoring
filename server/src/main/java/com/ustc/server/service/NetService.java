@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface NetService extends IService<Net> {
 
-    List<NetIndex> getCurrentNetIndexService();
+    List<NetIndex> getCurrentNetIndexService(String router);
 
     List<NetIndex> getLastNetIndexService(String time);
 }

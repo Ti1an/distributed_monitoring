@@ -39,19 +39,27 @@ public class CpuController {
     }
 
     @ApiOperation("有条件查询")
-    @GetMapping("/hasCondition/{page}/{limit}/{time}")
+    @PostMapping("/hasCondition/{page}/{limit}/{time}")
     public R queryTeachersByCondition(@ApiParam("当前页")@PathVariable("page")Long page,
                                       @ApiParam("每页记录数") @PathVariable("limit")Long limit,
-                                      @ApiParam("传入查询条件") @PathVariable("time") String time){
+                                      @ApiParam("传入查询条件") @PathVariable("time") String time,
+                                      @RequestBody List<String> routerList){
+        System.out.println(routerList);
+        String router = routerList.get(1);
         Page<Cpu> pageParam = new Page<>(page,limit);
         QueryWrapper<Cpu> wrapper = new QueryWrapper();
         if (!StringUtils.isNullOrEmpty(time)) {
             wrapper.like("gmt_create",time);
         }
+        if (!StringUtils.isNullOrEmpty(router)){
+            wrapper.like("computer_ip",router);
+        }
+//        wrapper.like("computer_ip",router);
         cpuService.page(pageParam, wrapper);
         List<Cpu> records = pageParam.getRecords();
         long total = pageParam.getTotal();
         long size = records.size();
+        int cpuNums = records.size();
         // 获取总的使用率/当前空闲率/系统使用率/用户使用率
         List<String> cpuName = new ArrayList<>();
         List<String> totalUsageRate = new ArrayList<>();
@@ -67,7 +75,7 @@ public class CpuController {
         }
         return R.ok().data("total", total).data("rows",records)
                 .data("cpuName",cpuName).data("totalUsageRate",totalUsageRate).data("currentFreeRate",currentFreeRate)
-                .data("systemUsageRate",systemUsageRate).data("userUsageRate",userUsageRate).data("size",size);
+                .data("systemUsageRate",systemUsageRate).data("userUsageRate",userUsageRate).data("size",size).data("cpuNums",cpuNums);
     }
 
 }

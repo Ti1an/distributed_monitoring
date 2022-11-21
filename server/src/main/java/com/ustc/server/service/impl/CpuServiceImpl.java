@@ -27,6 +27,7 @@ public class CpuServiceImpl extends ServiceImpl<CpuMapper, Cpu> implements CpuSe
 
     @Autowired
     private CpuMapper cpuMapper;
+
     @Override
     public List<String> statisticCpuUseRate() {
         List<String> list = new ArrayList<>();
@@ -35,9 +36,9 @@ public class CpuServiceImpl extends ServiceImpl<CpuMapper, Cpu> implements CpuSe
     }
 
     @Override
-    public List<CpuIndex> getCurrentCpuUsageRateService() {
+    public List<CpuIndex> getCurrentCpuUsageRateService(String router) {
         Map<String, List<Object>> map = new HashMap<>();
-        List<CpuIndex> currentCpuUsageRate = cpuMapper.getCurrentCpuUsageRate();
+        List<CpuIndex> currentCpuUsageRate = cpuMapper.getCurrentCpuUsageRate(router);
         return currentCpuUsageRate;
     }
 }

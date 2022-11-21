@@ -6,6 +6,7 @@ import com.ustc.server.entity.vo.CpuIndex;
 import com.ustc.server.entity.vo.CpuQuery;
 import com.ustc.server.entity.vo.MemoryIndex;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -28,8 +29,11 @@ public interface CpuMapper extends BaseMapper<Cpu> {
 //    @Select("select cpu_user_userate from cpu where computer_ip = ${ip} and cpu_no = 1")
 //    List<String> selectCpuUseRate(String ip);
 
-    @Select("select cpu_name,cpu_total_userate from cpu where gmt_create>DATE_SUB(current_timestamp(), INTERVAL 9 day) and computer_ip = '192.168.56.1' order by gmt_create desc,cpu_name asc limit 0,8")
-    List<CpuIndex> getCurrentCpuUsageRate();
+    @Select("select cpu_name,cpu_total_userate from cpu where gmt_create>DATE_SUB(current_timestamp(), INTERVAL 9 day) and computer_ip like #{router,jdbcType=VARCHAR} order by gmt_create desc,cpu_name asc limit 0,8")
+    List<CpuIndex> getCurrentCpuUsageRate(String router);
+
+//    @Select("select count(*) from cpu where computer_ip like #{router,jdbcType=VARCHAR} GROUP BY gmt_create limit 0,1")
+//    int getCpuNum(@Param("router")String router);
 
     // 默认情况下显示最近的一次
 //    @Select("select cpu_no,cpu_name,cpu_manufacturer,cpu_total_hz,cpu_type,cpu_user_userate,cpu_sys_userate,cpu_waitrate,cpu_errorrate,cpu_freerate,cpu_total_userate,gmt_create from cpu where computer_ip = '192.168.56.1' order by gmt_create desc limit ${page},${limit}")

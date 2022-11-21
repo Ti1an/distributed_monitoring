@@ -24,8 +24,8 @@ public class DiskServiceImpl extends ServiceImpl<DiskMapper, Disk> implements Di
     @Autowired
     private DiskMapper diskMapper;
     @Override
-    public List<DiskIndex> getCurrentDiskIndexService() {
-        List<DiskIndex> currentDiskIndex = diskMapper.getCurrentDiskIndex();
+    public List<DiskIndex> getCurrentDiskIndexService(String router) {
+        List<DiskIndex> currentDiskIndex = diskMapper.getCurrentDiskIndex(router);
         return currentDiskIndex;
     }
 }

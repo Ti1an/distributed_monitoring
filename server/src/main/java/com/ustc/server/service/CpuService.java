@@ -20,6 +20,6 @@ public interface CpuService extends IService<Cpu> {
 
     List<String> statisticCpuUseRate();
 
-    List<CpuIndex> getCurrentCpuUsageRateService();
+    List<CpuIndex> getCurrentCpuUsageRateService(String router);
 
 }

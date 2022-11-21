@@ -9,11 +9,9 @@ import com.ustc.server.service.DiskService;
 import com.ustc.server.service.MemoryService;
 import com.ustc.server.service.NetService;
 import com.ustc.server.utils.R;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -38,11 +36,14 @@ public class IndexController {
     private static final Long MB = 1024L * 1024L;
     private static final Long KB = 1024L;
 
-    @GetMapping("/show")
-    public R showData() {
+    @PostMapping("/show")
+    public R showData(@RequestBody(required = false) List<String> routerList) {
+        System.out.println(routerList);
+        String router = routerList.get(1);
         // 获取cpu数据
         List<CpuIndex> cpuIndexList=new ArrayList<>();
-        cpuIndexList = cpuService.getCurrentCpuUsageRateService();
+        cpuIndexList = cpuService.getCurrentCpuUsageRateService(router);
+        int cpuSize = cpuIndexList.size();
         List<String> cpuName = new ArrayList<>();
         List<Double> cpuUsageRate = new ArrayList<>();
         for (int i = 0; i < cpuIndexList.size(); i++) {
@@ -52,10 +53,10 @@ public class IndexController {
             cpuUsageRate.add(Double.parseDouble(cpuTotalUsageRate));
         }
         // 获取内存数据
-        MemoryIndex memoryIndex = memoryService.getCurrentMemoryUsageRateServuce();
+        MemoryIndex memoryIndex = memoryService.getCurrentMemoryUsageRateServuce(router);
 
         // 获取硬盘资源
-        List<DiskIndex> diskIndexList = diskService.getCurrentDiskIndexService();
+        List<DiskIndex> diskIndexList = diskService.getCurrentDiskIndexService(router);
         List<String> diskName = new ArrayList<>();
         List<String> diskUsageRate = new ArrayList<>();
         for (int i = 0; i < diskIndexList.size(); i++) {
@@ -63,9 +64,9 @@ public class IndexController {
             diskName.add(diskIndex.getDName());
             diskUsageRate.add(diskIndex.getDUseRate());
         }
-
+        int diskSize = diskIndexList.size();
         // 获取网卡资源
-        List<NetIndex> netIndexList = netService.getCurrentNetIndexService();
+        List<NetIndex> netIndexList = netService.getCurrentNetIndexService(router);
         List<String> sendNet = new ArrayList<>();
         List<String> acceptNet = new ArrayList<>();
         List<String> timeNet = new ArrayList<>();
@@ -78,11 +79,12 @@ public class IndexController {
         Collections.reverse(timeNet);
         Collections.reverse(sendNet);
         Collections.reverse(acceptNet);
+        int netSize = netIndexList.size();
 
-        return R.ok().data("cpuName",cpuName).data("cpuUsageRate",cpuUsageRate)
+        return R.ok().data("cpuName",cpuName).data("cpuUsageRate",cpuUsageRate).data("cpuSize",cpuSize)
                 .data("memoryAndSwap",memoryIndex)
                 .data("diskName",diskName).data("diskUsageRate",diskUsageRate)
-                .data("sendNet",sendNet).data("acceptNet",acceptNet).data("timeNet",timeNet);
+                .data("sendNet",sendNet).data("acceptNet",acceptNet).data("timeNet",timeNet).data("netSize",netSize);
 
     }
 }
