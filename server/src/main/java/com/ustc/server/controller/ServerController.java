@@ -48,7 +48,7 @@ public class ServerController {
     String[] routerList = {"192.168.56.1","192.168.43.45","192.168.43.108"};
 
     @GetMapping("/listener")
-    @Scheduled(cron = "0/3 * * * * ?")
+//    @Scheduled(cron = "0/3 * * * * ?")
     public void listener() throws InterruptedException {
 //        while (true) {
         for (int i = 0; i < routerList.length; i++) {
